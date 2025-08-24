@@ -809,6 +809,16 @@
                 padding: 15px 10px; /* 减少内边距 */
                 margin-left: -5px; /* 微调左边距 */
                 margin-right: -5px; /* 微调右边距 */
+                border-left-width: 3px; /* 减少左边装饰线宽度 */
+            }
+            
+            /* 阳历日期字体优化 */
+            .solar-date {
+                font-size: 1.1rem; /* 从1.3rem减少到1.1rem */
+            }
+            
+            .solar-date i {
+                font-size: 1rem; /* 相应调整图标大小 */
             }
         }
         
@@ -848,6 +858,16 @@
                 margin-left: -8px;
                 margin-right: -8px;
                 padding: 12px 8px;
+                border-left-width: 2px; /* 进一步减少左边装饰线 */
+            }
+            
+            /* 超小屏幕阳历日期进一步优化 */
+            .solar-date {
+                font-size: 1rem; /* 进一步减小字体 */
+            }
+            
+            .solar-date i {
+                font-size: 0.9rem;
             }
         }
     </style>
