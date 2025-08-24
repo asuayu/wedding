@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>传统婚期择吉系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --secondary: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --success: #27ae60;
+            --danger: #c0392b;
+            --warning: #f39c12;
+            --info: #3498db;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 10px; /* 移动端减少外边距 */
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--danger) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+        
+        .input-section {
+            flex: 1;
+            min-width: 350px;
+            padding: 30px;
+            background: rgba(241, 242, 246, 0.5);
+            border-right: 1px dashed #ddd;
+        }
+        
+        .result-section {
+            flex: 2;
+            min-width: 450px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        input[type="date"], select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        input[type="date"]:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(to right, var(--primary), var(--warning));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .result-container {
+            margin-top: 20px;
+            min-height: 300px;
+        }
+        
+        .date-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px; /* 减少卡片间距 */
+            min-height: 180px; /* 略微减少最小高度 */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s;
+            position: relative;
+            overflow: visible; /* 让提示框可以显示 */
+        }
+        
+        .date-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .date-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--warning));
+        }
+        
+        .date-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .solar-date {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .solar-date i {
+            color: var(--warning);
+        }
+        
+        .lunar-date {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+        
+        .ganzhi {
+            background: linear-gradient(to right, var(--secondary), var(--warning));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: help;
+        }
+        
+        /* 为非.sign元素添加tooltip样式 */
+        .ganzhi[data-tooltip],
+        .detail-value[data-tooltip] {
+            position: relative;
+            cursor: help;
+            outline: none;
+        }
+        
+        .ganzhi[data-tooltip]::after,
+        .detail-value[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: normal;
+            max-width: 360px;
+            min-width: 200px;
+            text-align: left;
+            word-break: break-word;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 2000;
+            transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+            /* 默认位置：左上方，避免超出右边界 */
+            bottom: calc(100% + 15px);
+            right: 0; /* 右对齐到元素右边 */
+            transform: translateY(-8px);
+        }
+        
+        .ganzhi[data-tooltip]::before,
+        .detail-value[data-tooltip]::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 2001;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            /* 默认位置：左上方的箭头 */
+            bottom: calc(100% + 7px);
+            right: 20px; /* 距离右边20px */
+            transform: none;
+            border-top-color: #2c3e50;
+        }
+        
+        .ganzhi[data-tooltip]:hover::after,
+        .ganzhi[data-tooltip]:focus::after,
+        .detail-value[data-tooltip]:hover::after,
+        .detail-value[data-tooltip]:focus::after {
+            opacity: 1;
+            visibility: visible;
+            transform: none; /* 修改为无变换，保持左上位置 */
+        }
+        
+        .ganzhi[data-tooltip]:hover::before,
+        .ganzhi[data-tooltip]:focus::before,
+        .detail-value[data-tooltip]:hover::before,
+        .detail-value[data-tooltip]:focus::before {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .details {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            gap: 15px;
+        }
+        
+        .detail-item {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .stars {
+            color: var(--warning);
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+        }
+        
+        .auspicious-signs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        
+        .sign {
+            background: #e8f8f5;
+            color: var(--success);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+        
+        .sign i {
+            font-size: 0.8rem;
+        }
+        
+        .sign.lucky-number {
+            background: #f0f8ff;
+            color: var(--info);
+        }
+        
+        .sign.traditional-star {
+            background: linear-gradient(to right, #8e44ad, #9b59b6);
+            color: white;
+            font-weight: bold;
+            border: 2px solid #8e44ad;
+        }
+        
+        /* 智能提示框样式 - 优化版本 */
+        .sign[data-tooltip] {
+            position: relative;
+            cursor: help;
+            outline: none;
+        }
+        
+        /* 提示框主体 */
+        .sign[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: normal;
+            max-width: 360px;
+            min-width: 200px;
+            text-align: left;
+            word-break: break-word;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 2000; /* 提高z-index确保不被遮挡 */
+            transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+        }
+        
+        /* 提示框箭头 */
+        .sign[data-tooltip]::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 2001; /* 确保箭头在提示框之上 */
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        
+        /* 默认位置：上方 (修改为默认位置) */
+        .sign[data-tooltip]:not([data-tooltip-pos])::after,
+        .sign[data-tooltip][data-tooltip-pos="top"]::after {
+            bottom: calc(100% + 15px); /* 增加距离避免遮挡 */
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+        }
+        .sign[data-tooltip]:not([data-tooltip-pos])::before,
+        .sign[data-tooltip][data-tooltip-pos="top"]::before {
+            bottom: calc(100% + 7px); /* 相应调整箭头位置 */
+            left: 50%;
+            transform: translateX(-50%);
+            border-top-color: #2c3e50;
+        }
+        
+        /* 位置：下方 (修改为非默认位置) */
+        .sign[data-tooltip][data-tooltip-pos="bottom"]::after {
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="bottom"]::before {
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-color: #2c3e50;
+        }
+        
+        /* 位置：右侧 */
+        .sign[data-tooltip][data-tooltip-pos="right"]::after {
+            left: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%) translateX(8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="right"]::before {
+            left: calc(100% + 4px);
+            top: 50%;
+            transform: translateY(-50%);
+            border-right-color: #2c3e50;
+        }
+        
+        /* 位置：左侧 */
+        .sign[data-tooltip][data-tooltip-pos="left"]::after {
+            right: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%) translateX(-8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="left"]::before {
+            right: calc(100% + 4px);
+            top: 50%;
+            transform: translateY(-50%);
+            border-left-color: #2c3e50;
+        }
+        
+        /* 边缘对齐修正 */
+        /* 下方/上方 - 左对齐 */
+        .sign[data-tooltip][data-tooltip-pos="bottom"][data-tooltip-align="left"]::after,
+        .sign[data-tooltip][data-tooltip-pos="top"][data-tooltip-align="left"]::after {
+            left: 0;
+            transform: translateY(8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="top"][data-tooltip-align="left"]::after {
+            transform: translateY(-8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="bottom"][data-tooltip-align="left"]::before,
+        .sign[data-tooltip][data-tooltip-pos="top"][data-tooltip-align="left"]::before {
+            left: 20px;
+            transform: none;
+        }
+        
+        /* 下方/上方 - 右对齐 */
+        .sign[data-tooltip][data-tooltip-pos="bottom"][data-tooltip-align="right"]::after,
+        .sign[data-tooltip][data-tooltip-pos="top"][data-tooltip-align="right"]::after {
+            right: 0;
+            left: auto;
+            transform: translateY(8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="top"][data-tooltip-align="right"]::after {
+            transform: translateY(-8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="bottom"][data-tooltip-align="right"]::before,
+        .sign[data-tooltip][data-tooltip-pos="top"][data-tooltip-align="right"]::before {
+            right: 20px;
+            left: auto;
+            transform: none;
+        }
+        
+        /* 左侧/右侧 - 顶部对齐 */
+        .sign[data-tooltip][data-tooltip-pos="left"][data-tooltip-align-y="top"]::after,
+        .sign[data-tooltip][data-tooltip-pos="right"][data-tooltip-align-y="top"]::after {
+            top: 0;
+            transform: translateX(8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="left"][data-tooltip-align-y="top"]::after {
+            transform: translateX(-8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="left"][data-tooltip-align-y="top"]::before,
+        .sign[data-tooltip][data-tooltip-pos="right"][data-tooltip-align-y="top"]::before {
+            top: 20px;
+            transform: none;
+        }
+        
+        /* 左侧/右侧 - 底部对齐 */
+        .sign[data-tooltip][data-tooltip-pos="left"][data-tooltip-align-y="bottom"]::after,
+        .sign[data-tooltip][data-tooltip-pos="right"][data-tooltip-align-y="bottom"]::after {
+            bottom: 0;
+            top: auto;
+            transform: translateX(8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="left"][data-tooltip-align-y="bottom"]::after {
+            transform: translateX(-8px);
+        }
+        .sign[data-tooltip][data-tooltip-pos="left"][data-tooltip-align-y="bottom"]::before,
+        .sign[data-tooltip][data-tooltip-pos="right"][data-tooltip-align-y="bottom"]::before {
+            bottom: 20px;
+            top: auto;
+            transform: none;
+        }
+        
+        /* 显示状态 */
+        .sign[data-tooltip]:hover::after,
+        .sign[data-tooltip]:focus::after,
+        .sign[data-tooltip][data-tooltip-open="true"]::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%);
+        }
+        .sign[data-tooltip]:hover::before,
+        .sign[data-tooltip]:focus::before,
+        .sign[data-tooltip][data-tooltip-open="true"]::before {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 各方向显示时的变换重置 */
+        .sign[data-tooltip][data-tooltip-pos="top"]:hover::after,
+        .sign[data-tooltip][data-tooltip-pos="top"]:focus::after,
+        .sign[data-tooltip][data-tooltip-pos="top"][data-tooltip-open="true"]::after {
+            transform: translateX(-50%);
+        }
+        .sign[data-tooltip][data-tooltip-pos="right"]:hover::after,
+        .sign[data-tooltip][data-tooltip-pos="right"]:focus::after,
+        .sign[data-tooltip][data-tooltip-pos="right"][data-tooltip-open="true"]::after {
+            transform: translateY(-50%);
+        }
+        .sign[data-tooltip][data-tooltip-pos="left"]:hover::after,
+        .sign[data-tooltip][data-tooltip-pos="left"]:focus::after,
+        .sign[data-tooltip][data-tooltip-pos="left"][data-tooltip-open="true"]::after {
+            transform: translateY(-50%);
+        }
+        
+        /* 边缘对齐时的显示变换 */
+        .sign[data-tooltip][data-tooltip-align="left"]:hover::after,
+        .sign[data-tooltip][data-tooltip-align="left"]:focus::after,
+        .sign[data-tooltip][data-tooltip-align="left"][data-tooltip-open="true"]::after {
+            transform: none;
+        }
+        .sign[data-tooltip][data-tooltip-align="right"]:hover::after,
+        .sign[data-tooltip][data-tooltip-align="right"]:focus::after,
+        .sign[data-tooltip][data-tooltip-align="right"][data-tooltip-open="true"]::after {
+            transform: none;
+        }
+        .sign[data-tooltip][data-tooltip-align-y="top"]:hover::after,
+        .sign[data-tooltip][data-tooltip-align-y="top"]:focus::after,
+        .sign[data-tooltip][data-tooltip-align-y="top"][data-tooltip-open="true"]::after {
+            transform: none;
+        }
+        .sign[data-tooltip][data-tooltip-align-y="bottom"]:hover::after,
+        .sign[data-tooltip][data-tooltip-align-y="bottom"]:focus::after,
+        .sign[data-tooltip][data-tooltip-align-y="bottom"][data-tooltip-open="true"]::after {
+            transform: none;
+        }
+        
+        .conflict-warning {
+            background: #fdedec;
+            color: var(--danger);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .conflict-warning i {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* 新增：生辰信息面板样式 */
+        .birth-info-panel {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            width: 100%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .birth-info-title {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        
+        .birth-info-content {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .groom-info, .bride-info {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .bride-info {
+            border-left-color: var(--secondary);
+        }
+        
+        .person-label {
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .person-label i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .bride-info .person-label i {
+            color: var(--secondary);
+        }
+        
+        .birth-details {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #6c757d;
+        }
+        
+        .birth-detail-item {
+            margin-bottom: 6px;
+            padding: 3px 0;
+        }
+        
+        .birth-detail-item strong {
+            color: var(--dark);
+            display: inline-block;
+            min-width: 50px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(241, 242, 246, 0.8);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 25px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #95a5a6;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #bdc3c7;
+            margin-bottom: 15px;
+        }
+        
+        .error-box {
+            background: #fdedec;
+            color: var(--danger);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .error-box i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .error-box h3 {
+            margin: 10px 0;
+            color: var(--danger);
+        }
+        
+        .retry-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .retry-btn:hover {
+            background: #a5281b;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 5px; /* 进一步减少移动端外边距 */
+            }
+            
+            .container {
+                margin: 0; /* 移动端去除外边距 */
+                border-radius: 0; /* 移动端去除圆角 */
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .input-section {
+                border-right: none;
+                border-bottom: 1px dashed #ddd;
+                padding: 20px 15px; /* 减少左右内边距 */
+            }
+            
+            .result-section {
+                padding: 20px 15px; /* 减少左右内边距 */
+            }
+            
+            header {
+                padding: 20px 15px; /* 减少头部内边距 */
+            }
+            
+            header h1 {
+                font-size: 1.8rem; /* 适当减小标题字体 */
+            }
+            
+            header p {
+                font-size: 1rem; /* 适当减小副标题字体 */
+            }
+            
+            /* 移动端生辰信息面板适配 */
+            .birth-info-panel {
+                padding: 15px 10px; /* 减少内边距 */
+                margin-bottom: 20px;
+                margin-left: -5px; /* 微调左边距 */
+                margin-right: -5px; /* 微调右边距 */
+            }
+            
+            .birth-info-title {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+            
+            .birth-info-content {
+                flex-direction: column;
+                gap: 12px; /* 减少间距 */
+            }
+            
+            .groom-info, .bride-info {
+                padding: 12px 10px; /* 减少内边距 */
+                margin: 0; /* 去除外边距 */
+            }
+            
+            .person-label {
+                font-size: 0.95rem;
+                margin-bottom: 8px;
+            }
+            
+            .birth-details {
+                font-size: 0.85rem;
+            }
+            
+            .birth-detail-item {
+                margin-bottom: 4px; /* 减少间距 */
+            }
+            
+            /* 输入区域优化 */
+            input[type="date"], select {
+                padding: 12px 10px; /* 适当减少内边距 */
+                font-size: 0.95rem;
+            }
+            
+            button {
+                padding: 12px 20px; /* 适当减少内边距 */
+                font-size: 1rem;
+            }
+            
+            /* 日期卡片优化 */
+            .date-card {
+                margin-bottom: 20px;
+                padding: 15px 10px; /* 减少内边距 */
+                margin-left: -5px; /* 微调左边距 */
+                margin-right: -5px; /* 微调右边距 */
+            }
+        }
+        
+        /* 超小屏幕优化 */
+        @media (max-width: 480px) {
+            body {
+                padding: 2px;
+            }
+            
+            .container {
+                box-shadow: none; /* 去除阴影 */
+            }
+            
+            header {
+                padding: 15px 10px;
+            }
+            
+            header h1 {
+                font-size: 1.6rem;
+            }
+            
+            header p {
+                font-size: 0.9rem;
+            }
+            
+            .input-section, .result-section {
+                padding: 15px 10px;
+            }
+            
+            .birth-info-panel {
+                margin-left: -8px;
+                margin-right: -8px;
+                padding: 12px 8px;
+            }
+            
+            .date-card {
+                margin-left: -8px;
+                margin-right: -8px;
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>传统婚期择吉系统</h1>
+            <p>融合天文历法、阴阳五行、民俗禁忌的智能择日工具</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="male-birth"><i class="fas fa-male"></i> 新郎出生日期</label>
+                    <input type="date" id="male-birth" value="1991-10-08" required min="1900-01-01" max="2100-12-31">
+                </div>
+                
+                <div class="form-group">
+                    <label for="female-birth"><i class="fas fa-female"></i> 新娘出生日期</label>
+                    <input type="date" id="female-birth" value="1996-11-01" required min="1900-01-01" max="2100-12-31">
+                </div>
+                
+                <div class="form-group">
+                    <label for="start-date"><i class="fas fa-calendar-alt"></i> 开始查询日期</label>
+                    <input type="date" id="start-date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="search-range"><i class="fas fa-search"></i> 查询范围</label>
+                    <select id="search-range">
+                        <option value="180">6个月内</option>
+                        <option value="365">1年内</option>
+                        <option value="730" selected>2年内</option>
+                        <option value="1825">5年内</option>
+                    </select>
+                </div>
+                
+                <button id="calculate-btn">
+                    <i class="fas fa-heart"></i> 计算吉日
+                </button>
+            </div>
+            
+            <div class="result-section">
+                <h2><i class="fas fa-list-alt"></i> 推荐婚期</h2>
+                
+                <div class="birth-info-panel" id="birth-info-panel" style="display: none;">
+                    <div class="birth-info-title">
+                        <i class="fas fa-users"></i> 新人生辰信息
+                    </div>
+                    <div class="birth-info-content">
+                        <div class="groom-info">
+                            <div class="person-label">
+                                <i class="fas fa-male"></i> 新郎
+                            </div>
+                            <div class="birth-details" id="groom-details"></div>
+                        </div>
+                        <div class="bride-info">
+                            <div class="person-label">
+                                <i class="fas fa-female"></i> 新娘
+                            </div>
+                            <div class="birth-details" id="bride-details"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="conflict-warning" class="conflict-warning" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div id="warning-text"></div>
+                </div>
+                
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>正在计算吉日，请稍候...</p>
+                </div>
+                
+                <div class="result-container" id="result-container">
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-plus"></i>
+                        <p>请输入双方生日并点击计算按钮</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 天干地支配置
+        const TIANGAN = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+        const DIZHI = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        const SHENGXIAO = ["鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"];
+        const WUXING = ["金", "金", "火", "火", "土", "土", "金", "金", "水", "水", "土", "土"];
+        
+        // 十二建星配置（传统择日核心）
+        const TWELVE_BUILDERS = ["建", "除", "满", "平", "定", "执", "破", "危", "成", "收", "开", "闭"];
+        const BUILDER_TYPES = {
+            '黄道': ['除', '危', '定', '执', '成', '开'], // 黄道吉日
+            '黑道': ['建', '满', '平', '收', '闭', '破']  // 黑道凶日
+        };
+        
+        // 嫁娶专用宜忌（根据传统文化）
+        const MARRIAGE_SUITABLE = {
+            '建': false, '除': true,  '满': false, '平': false,
+            '定': true,  '执': true,  '破': false, '危': false,
+            '成': true,  '收': true,  '开': true,  '闭': false
+        };
+        
+        // 传统凶日配置
+        const BAD_DAYS = {
+            '三娘煞': [3, 7, 13, 18, 22, 27], // 每月的凶日
+            '杨公忌': [
+                [1, 13], [2, 11], [3, 9], [4, 7], [5, 5], [6, 3],
+                [7, 1], [7, 29], [8, 27], [9, 25], [10, 23], [11, 21], [12, 19]
+            ], // [月, 日]
+            '月忌': [5, 14, 23], // 每月忌日
+        };
+        
+        // 吉神配置（传统文化为主，保留原有但调整优先级）
+        const JISHEN = {
+            '天德': [[1,9], [2,7], [3,5], [4,3], [5,1], [6,9], [7,7], [8,5], [9,3], [10,1], [11,9], [12,7]],
+            '月德': [[1,10], [2,10], [3,10], [4,10], [5,10], [6,10], [7,10], [8,10], [9,10], [10,10], [11,10], [12,10]],
+            '天喜': [[1,11], [2,12], [3,1], [4,2], [5,3], [6,4], [7,5], [8,6], [9,7], [10,8], [11,9], [12,10]],
+            '三合': [[1,5], [2,9], [3,1], [4,5], [5,9], [6,1], [7,5], [8,9], [9,1], [10,5], [11,9], [12,1]],
+            '六合': [[1,6], [2,6], [3,6], [4,6], [5,6], [6,6], [7,6], [8,6], [9,6], [10,6], [11,6], [12,6]],
+            '天赦': [[1,1], [2,19], [3,19], [4,17], [5,15], [6,13], [7,11], [8,9], [9,7], [10,5], [11,3], [12,1]] // 天赦日
+        };
+        
+        // 生肖冲克关系
+        const SHENGXIAO_CONFLICTS = {
+            '鼠': '马', '牛': '羊', '虎': '猴',
+            '兔': '鸡', '龙': '狗', '蛇': '猪',
+            '马': '鼠', '羊': '牛', '猴': '虎',
+            '鸡': '兔', '狗': '龙', '猪': '蛇'
+        };
+        
+        // 初始化日期为今天
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedDate = formatDate(today);
+            document.getElementById('start-date').value = formattedDate;
+            
+            // 添加数字吉测试按钮（仅在调试模式下）
+            if (window.location.search.includes('debug')) {
+                const debugBtn = document.createElement('button');
+                debugBtn.innerHTML = '🔍 测试数字吉';
+                debugBtn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;padding:5px 10px;background:#f39c12;color:white;border:none;border-radius:5px;cursor:pointer;';
+                debugBtn.onclick = testLuckyNumbers;
+                document.body.appendChild(debugBtn);
+            }
+        });
+        
+        // 测试数字吉功能
+        function testLuckyNumbers() {
+            window.DEBUG_WEDDING = true;
+            console.log('=== 数字吉测试开始 ===');
+            console.log('过滤规则：只有数字吉而没有吉神的日期不显示');
+            
+            // 测试一些包含6,8,9的日期
+            const testDates = [6, 8, 9, 16, 18, 19, 26, 28, 29];
+            testDates.forEach(day => {
+                const dayStr = day.toString();
+                const isLucky = dayStr.includes('6') || dayStr.includes('8') || dayStr.includes('9');
+                console.log(`日期 ${day}: ${isLucky ? '✅ 数字吉' : '❌ 非数字吉'} - 但只有数字吉的日期不会显示`);
+            });
+            
+            alert('数字吉测试完成，请查看控制台输出');
+        }
+        
+        // 计算按钮点击事件
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            const maleBirth = document.getElementById('male-birth').value;
+            const femaleBirth = document.getElementById('female-birth').value;
+            const startDate = document.getElementById('start-date').value;
+            const searchRange = parseInt(document.getElementById('search-range').value);
+            
+            if (!validateInput(maleBirth, femaleBirth, startDate)) {
+                return;
+            }
+            
+            calculateAuspiciousDates(maleBirth, femaleBirth, startDate, searchRange);
+        });
+        
+        // 输入验证
+        function validateInput(maleBirth, femaleBirth, startDate) {
+            if (!maleBirth || !femaleBirth || !startDate) {
+                showError('请填写完整信息');
+                return false;
+            }
+            
+            const maleDate = new Date(maleBirth);
+            const femaleDate = new Date(femaleBirth);
+            const start = new Date(startDate);
+            
+            if (isNaN(maleDate.getTime()) || isNaN(femaleDate.getTime()) || isNaN(start.getTime())) {
+                showError('日期格式不正确，请使用YYYY-MM-DD格式');
+                return false;
+            }
+            
+            if (maleDate > new Date() || femaleDate > new Date()) {
+                showError('出生日期不能晚于今天');
+                return false;
+            }
+            
+            if (start < new Date(1900, 0, 1) || start > new Date(2100, 11, 31)) {
+                showError('查询日期需在1900-2100年范围内');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // 显示错误
+        function showError(message) {
+            const container = document.getElementById('result-container');
+            container.innerHTML = `
+                <div class="error-box">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>输入错误</h3>
+                    <p>${message}</p>
+                    <button class="retry-btn" onclick="clearError()">重新输入</button>
+                </div>
+            `;
+        }
+        
+        // 清除错误
+        function clearError() {
+            document.getElementById('result-container').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-calendar-plus"></i>
+                    <p>请输入双方生日并点击计算按钮</p>
+                </div>
+            `;
+        }
+        
+        // 主计算函数
+        function calculateAuspiciousDates(maleBirth, femaleBirth, startDate, daysToSearch) {
+            // 显示加载中
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result-container').innerHTML = '';
+            document.getElementById('conflict-warning').style.display = 'none';
+            
+            // 使用setTimeout让UI有机会更新
+            setTimeout(() => {
+                try {
+                    // 1. 解析输入日期
+                    const maleDate = new Date(maleBirth);
+                    const femaleDate = new Date(femaleBirth);
+                    const start = new Date(startDate);
+                    const endDate = new Date(start);
+                    endDate.setDate(endDate.getDate() + daysToSearch);
+                    
+                    // 2. 计算双方生肖和八字
+                    const maleInfo = calculateBirthInfo(maleDate);
+                    const femaleInfo = calculateBirthInfo(femaleDate);
+                    
+                    // 显示生肖冲突警告
+                    checkShengxiaoConflict(maleInfo.shengxiao, femaleInfo.shengxiao);
+                    
+                    // 3. 查找吉日
+                    const results = [];
+                    let currentDate = new Date(start);
+                    
+                    while (currentDate <= endDate && results.length < 30) {
+                        const dateInfo = checkAuspiciousDate(currentDate, maleInfo, femaleInfo);
+                        if (dateInfo) {
+                            results.push(dateInfo);
+                        }
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    }
+                    
+                    // 4. 显示结果和生辰信息
+                    displayResults(results, maleInfo, femaleInfo);
+                    displayBirthInfo(maleInfo, femaleInfo, maleDate, femaleDate);
+                    
+                } catch (error) {
+                    console.error('计算错误:', error);
+                    showCalculationError(error.message);
+                } finally {
+                    document.getElementById('loading').style.display = 'none';
+                }
+            }, 100);
+        }
+        
+        // 检查生肖冲突
+        function checkShengxiaoConflict(maleSx, femaleSx) {
+            if (SHENGXIAO_CONFLICTS[maleSx] === femaleSx) {
+                const warningText = `⚠️ 生肖冲突：${maleSx}与${femaleSx}相冲，建议选择三合日化解`;
+                document.getElementById('warning-text').innerHTML = warningText;
+                document.getElementById('conflict-warning').style.display = 'flex';
+            }
+        }
+        
+        // 计算出生信息（生肖、八字等）
+        function calculateBirthInfo(birthDate) {
+            const year = birthDate.getFullYear();
+            const month = birthDate.getMonth() + 1;
+            const day = birthDate.getDate();
+            
+            // 干支年计算（简化）
+            const ganzhiYearIndex = (year - 4) % 60;
+            const yearGan = TIANGAN[ganzhiYearIndex % 10];
+            const yearZhi = DIZHI[ganzhiYearIndex % 12];
+            const shengxiao = SHENGXIAO[ganzhiYearIndex % 12];
+            const wuxing = WUXING[ganzhiYearIndex % 12];
+            
+            // 日干支计算（简化）
+            const baseDate = new Date(1900, 0, 31); // 1900年1月31日为甲子日
+            const deltaDays = Math.floor((birthDate - baseDate) / (1000 * 60 * 60 * 24));
+            const ganzhiDayIndex = deltaDays % 60;
+            const dayGan = TIANGAN[ganzhiDayIndex % 10];
+            const dayZhi = DIZHI[ganzhiDayIndex % 12];
+            const dayWuxing = WUXING[ganzhiDayIndex % 12];
+            
+            return {
+                yearGanzhi: yearGan + yearZhi,
+                shengxiao: shengxiao,
+                yearWuxing: wuxing,
+                dayGanzhi: dayGan + dayZhi,
+                dayWuxing: dayWuxing,
+                lunarDate: getLunarDateString(birthDate)
+            };
+        }
+        
+        // 获取农历日期字符串（方案A：使用 Intl 中文农历，准确换算；不支持时优雅降级）
+        function getLunarDateString(date) {
+            // 优先：使用浏览器内置的中文农历历法（准确、维护成本低）
+            try {
+                // 使用 zh-CN 语系 + chinese 历法，分别取年、月、日用于自定义拼装
+                const fmt = new Intl.DateTimeFormat('zh-CN-u-ca-chinese', { year: 'numeric', month: 'long', day: 'numeric' });
+                const parts = fmt.formatToParts(date);
+                let y = '', m = '', d = '';
+                for (const p of parts) {
+                    if (p.type === 'year') y = p.value;
+                    if (p.type === 'month') m = p.value;    // 可能包含“闰”
+                    if (p.type === 'day') d = p.value;
+                }
+                // 正常情况下 m、d 必定存在；年在部分实现中可能为空或已包含“年”字
+                if (m && d) {
+                    // 统一处理年后缀
+                    const yearStr = y && !/年$/.test(y) ? (y + '年 ') : (y ? (y + ' ') : '');
+                    return `${yearStr}${m} ${d}`;
+                }
+            } catch (e) {
+                // 若环境不支持 chinese 历法，进入降级
+            }
+            
+            // 降级：回退为公历的中文格式并标注“（示意）”，避免与阳历混淆
+            return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日（示意）`;
+        }
+        
+        // 检查是否为吉日（按传统文化重新设计）
+        function checkAuspiciousDate(date, maleInfo, femaleInfo) {
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            
+            // 1. 检查传统凶日（传统文化最重要）
+            const badDayInfo = isBadDay(date);
+            if (badDayInfo) {
+                // 传统凶日直接排除
+                if (window.DEBUG_WEDDING) {
+                    console.log(`${year}-${month}-${day}: 传统凶日 - ${badDayInfo.type}: ${badDayInfo.reason}`);
+                }
+                return null;
+            }
+            
+            // 2. 检查月破日
+            if (isMonthBreakDay(date)) {
+                if (window.DEBUG_WEDDING) {
+                    console.log(`${year}-${month}-${day}: 月破日，不宜办婚事`);
+                }
+                return null;
+            }
+            
+            // 3. 计算日干支
+            const baseDate = new Date(1900, 0, 31);
+            const deltaDays = Math.floor((date - baseDate) / (1000 * 60 * 60 * 24));
+            const ganzhiDayIndex = deltaDays % 60;
+            const dayGan = TIANGAN[ganzhiDayIndex % 10];
+            const dayZhi = DIZHI[ganzhiDayIndex % 12];
+            const ganzhiDay = dayGan + dayZhi;
+            
+            // 4. 检查是否冲新人八字（简化）
+            if (dayZhi === maleInfo.dayGanzhi[1] || dayZhi === femaleInfo.dayGanzhi[1]) {
+                if (window.DEBUG_WEDDING) {
+                    console.log(`${year}-${month}-${day}: 冲新人八字，不宜`);
+                }
+                return null;
+            }
+            
+            // 5. 计算十二建星（传统文化核心）
+            const builder = getTwelveBuilder(date);
+            const isBuilderSuitable = MARRIAGE_SUITABLE[builder];
+            
+            // 6. 检查吉神
+            const auspiciousSigns = [];
+            for (const [shen, days] of Object.entries(JISHEN)) {
+                if (days.some(([m, d]) => m === month && d === day)) {
+                    auspiciousSigns.push(shen);
+                }
+            }
+            
+            // 7. 传统文化择日核心逻辑：必须是十二建星吉日才能考虑
+            if (!isBuilderSuitable) {
+                if (window.DEBUG_WEDDING) {
+                    console.log(`${year}-${month}-${day}: 十二建星"${builder}"不宜嫁娶`);
+                }
+                return null;
+            }
+            
+            // 8. 在十二建星吉日的基础上，要求至少有一个传统吉神
+            if (auspiciousSigns.length === 0) {
+                if (window.DEBUG_WEDDING) {
+                    console.log(`${year}-${month}-${day}: 十二建星"${builder}"吉，但缺少传统吉神`);
+                }
+                return null;
+            }
+            
+            // 9. 计算推荐指数（完全基于传统文化）
+            let score = 1;
+            
+            // 十二建星加分（传统择日核心）
+            if (builder === '成' || builder === '开') score += 4; // 最好的日子
+            else if (builder === '除' || builder === '定') score += 3;
+            else if (builder === '收') score += 2;
+            else if (builder === '执') score += 1;
+            
+            // 传统吉神加分
+            if (auspiciousSigns.includes('天德') || auspiciousSigns.includes('月德')) score += 3;
+            if (auspiciousSigns.includes('天赦')) score += 3;
+            if (auspiciousSigns.includes('天喜')) score += 2;
+            if (auspiciousSigns.includes('三合') || auspiciousSigns.includes('六合')) score += 1;
+            
+            // 调试信息
+            if (window.DEBUG_WEDDING) {
+                console.log(`${year}-${month}-${day}: 十二建星="${builder}", 吉神=[${auspiciousSigns.join(',')}], 评分=${score}`);
+            }
+            
+            // 转换为农历
+            const lunarDate = getLunarDateString(date);
+            
+            return {
+                solarDate: new Date(date.getTime()),
+                lunarDate: lunarDate,
+                ganzhi: ganzhiDay,
+                builder: builder, // 十二建星
+                signs: auspiciousSigns,
+                score: Math.min(5, score),
+                chongShengxiao: getChongShengxiao(dayZhi)
+            };
+        }
+        
+        // 获取相冲生肖
+        function getChongShengxiao(zhi) {
+            const index = DIZHI.indexOf(zhi);
+            const conflictIndex = (index + 6) % 12;
+            return SHENGXIAO[conflictIndex];
+        }
+        
+        // 新增：计算十二建星（传统择日核心）
+        function getTwelveBuilder(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            
+            // 计算节气（简化）
+            const monthStart = new Date(year, month - 1, 1);
+            const daysSinceMonthStart = Math.floor((date - monthStart) / (1000 * 60 * 60 * 24));
+            
+            // 根据月份计算建日的地支
+            const buildZhi = (month + 1) % 12; // 简化计算
+            
+            // 计算当日对应的十二建星
+            const builderIndex = (daysSinceMonthStart + buildZhi) % 12;
+            return TWELVE_BUILDERS[builderIndex];
+        }
+        
+        // 新增：检查是否为传统凶日
+        function isBadDay(date) {
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            
+            // 检查三娘煞日
+            if (BAD_DAYS['三娘煞'].includes(day)) {
+                return { type: '三娘煞', reason: '三娘不利嫁娶，传说会破坏新人喜事' };
+            }
+            
+            // 检查杨公忌日
+            for (const [badMonth, badDay] of BAD_DAYS['杨公忌']) {
+                if (month === badMonth && day === badDay) {
+                    return { type: '杨公忌', reason: '杨公忌日，不宜办婚嫁喜事' };
+                }
+            }
+            
+            // 检查月忌日
+            if (BAD_DAYS['月忌'].includes(day)) {
+                return { type: '月忌', reason: '月忌日，太阳不出，不宜办婚事' };
+            }
+            
+            return null; // 不是凶日
+        }
+        
+        // 新增：检查月破日（与月令相冲）
+        function isMonthBreakDay(date) {
+            const month = date.getMonth() + 1;
+            const dayZhi = DIZHI[(date.getDate() - 1) % 12];
+            const monthZhi = DIZHI[(month + 1) % 12];
+            
+            // 检查是否相冲（相差6位）
+            const dayIndex = DIZHI.indexOf(dayZhi);
+            const monthIndex = DIZHI.indexOf(monthZhi);
+            return Math.abs(dayIndex - monthIndex) === 6;
+        }
+
+        // 新增：根据标志名称返回专业解释文案（用于 tooltip）
+        function getSignExplanation(sign, dayZhi) {
+            const MAP = {
+                天德: '天德贵人降临，主和顺助益，贵人运势旺盛\n行事多得长辈贵人相助，特别适宜婚嫁喜庆、求和谈判等重要事宜',
+                月德: '月德贵人照耀，主人缘与贵气，逢凶化吉转运\n人际关系和谐融洽，特别适宜婚嫁庆典、会亲访友等社交活动',
+                天喜: '天喜星临门，主喜庆缘分，婚姻美满之象\n感情运势极佳，气氛和乐融融，是举办婚礼订盟的绝佳时机',
+                三合: '与日支形成三合局，主合和助力，事业爱情双丰收\n团队合作顺利，夫妻感情和睦，特别利于婚嫁与重要合作事宜',
+                六合: '与日支六合相应，主贵人相合，人际关系极佳\n容易得到他人帮助支持，贵人运势强劲，是成就大事的好时机',
+                天赦: '天赦日降临人间，上天赦罪消灾，万事皆宜大吉\n诸事顺遂如意，是传统择日中最为吉利珍贵的日子之一'
+            };
+            if (sign === '三合' && dayZhi) return `与日支${dayZhi}形成三合局，主合和助力，事业爱情双丰收\n团队合作顺利，夫妻感情和睦，特别利于婚嫁与重要合作事宜`;
+            if (sign === '六合' && dayZhi) return `与日支${dayZhi}六合相应，主贵人相合，人际关系极佳\n容易得到他人帮助支持，贵人运势强劲，是成就大事的好时机`;
+            return MAP[sign] || '传统吉神护佑，利于婚嫁与人际和谐';
+        }
+        
+        // 新增：获取十二建星的详细解释
+        function getBuilderExplanation(builder) {
+            const builderDesc = {
+                '建': '建日：建立开创之意，属黑道日，气场较为冲动\n适宜出行赴任、开工建设，但不宜婚嫁喜庆、动土安葬等事',
+                '除': '除日：除旧布新之意，属黄道吉日，清新气场\n特别适宜婚嫁祖福、出行求医、清洁整理，诸事吉利顺遂',
+                '满': '满日：圆满充实之意，属黑道日，容易过满则亏\n适宜修建仓库、庆祝祝贺，但不宜婚嫁出行、签约合作',
+                '平': '平日：平和中庸之意，属黑道日，气场平淡无奇\n诸事平常无大吉凶，可处理日常事务，但不宜重要决策',
+                '定': '定日：安定稳固之意，属黄道吉日，最利安定事宜\n特别适宜婚嫁订盟、安床定居、签约合作，大吉大利',
+                '执': '执日：执行坚持之意，属黄道吉日，利于实施计划\n适宜婚嫁庆典、医疗治病、执行决定，但出行需谨慎',
+                '破': '破日：破坏冲突之意，属黑道凶日，最不宜喜庆\n仅适宜治病拆除、破旧立新，其他重要事宜皆不宜进行',
+                '危': '危日：高危谨慎之意，属黄道日，需要小心行事\n适宜婚嫁安床、谨慎决策，但登高冒险、大胆行动不宜',
+                '成': '成日：成功达成之意，属最吉利日子，万事皆宜\n特别适宜婚嫁开业、重要庆典、签约合作，诸事皆能成功',
+                '收': '收日：收获储藏之意，属黑道日，利于收藏整理\n适宜婚嫁收纳、储蓄理财、总结收尾，但开业扩展不宜',
+                '开': '开日：开启发展之意，属最吉利日子，生机勃勃\n特别适宜婚嫁开业、出行拓展、新项目启动，大吉大利',
+                '闭': '闭日：闭塞阻滞之意，属黑道凶日，气场封闭压抑\n仅适宜修建安葬、内省修养，其他重要喜庆事宜皆不宜'
+            };
+            
+            const isGoodDay = BUILDER_TYPES['黄道'].includes(builder);
+            const dayType = isGoodDay ? '黄道吉日' : '黑道日';
+            
+            return builderDesc[builder] || `${builder}日：${dayType}特征明显\n请参考传统择日文献了解详细宜忌事项`;
+        }
+        
+        // 新增：获取干支的详细解释
+        function getGanzhiExplanation(ganzhi) {
+            if (!ganzhi || ganzhi.length < 2) return '干支信息';
+            const gan = ganzhi[0];
+            const zhi = ganzhi[1];
+            
+            const ganMeaning = {
+                '甲': '阳木：象征生长创新，主积极向上，具有开拓精神',
+                '乙': '阴木：象征柔和适应，主温和包容，具有韧性美德',
+                '丙': '阳火：象征光明热情，主活力充沛，具有领导魅力',
+                '丁': '阴火：象征温暖细致，主文雅精致，具有艺术气质',
+                '戊': '阳土：象征稳重厚实，主可靠踏实，具有承载力量',
+                '己': '阴土：象征包容养育，主温和慈祥，具有母性光辉',
+                '庚': '阳金：象征刚强果断，主坚毅决断，具有革新能力',
+                '辛': '阴金：象征精致敏锐，主聪慧灵巧，具有美学品味',
+                '壬': '阳水：象征智慧流动，主聪明灵活，具有变通智慧',
+                '癸': '阴水：象征润泽包容，主柔和滋润，具有养育之功'
+            };
+            
+            const zhiMeaning = {
+                '子': '子时鼠年：主机智灵活，适合新的开始，利于初创事业',
+                '丑': '丑时牛年：主踏实勤奋，宜稳重行事，利于持久经营',
+                '寅': '寅时虎年：主勇猛进取，利于拓展，适合开创新局面',
+                '卯': '卯时兔年：主温和谨慎，宜和谐相处，利于人际关系',
+                '辰': '辰时龙年：主吉祥如意，利于重要事宜，具有龙德神威',
+                '巳': '巳时蛇年：主智慧深沉，宜深思熟虑，利于策划决策',
+                '午': '午时马年：主热情奔放，利于积极行动，适合大胆进取',
+                '未': '未时羊年：主温和友善，宜合作共事，利于团队协作',
+                '申': '申时猴年：主机智灵巧，利于变通，适合灵活应变',
+                '酉': '酉时鸡年：主守时勤勉，宜按时行事，利于规划执行',
+                '戌': '戌时狗年：主忠诚可靠，利于承诺，适合长期合作',
+                '亥': '亥时猪年：主诚实厚道，宜诚信待人，利于建立信任'
+            };
+            
+            const ganDesc = ganMeaning[gan] || '天干';
+            const zhiDesc = zhiMeaning[zhi] || '地支';
+            
+            return `${ganzhi}日：${ganDesc}\n${zhiDesc}，综合气场利于择吉行事`;
+        }
+        
+        // 新增：获取生肖冲的详细解释
+        function getChongExplanation(chongShengxiao, currentGanzhi) {
+            // 根据网络搜索的传统生肖冲知识，完善解释
+            const chongDesc = {
+                '鼠': '与马相冲（子午相冲）\n五行对立，主性格观念相差极大，需谨慎择日',
+                '牛': '与羊相冲（丑未相冲）\n土土相冲，主固执己见，宜避免冲突时机',
+                '虎': '与猴相冲（寅申相冲）\n木金相克，主意见分歧，需化解冲克之力',
+                '兔': '与鸡相冲（卯酉相冲）\n木金相克，主争执不和，宜选三合日化解',
+                '龙': '与狗相冲（辰戌相冲）\n土土相冲，主冲突矛盾，需避开冲日行事',
+                '蛇': '与猪相冲（巳亥相冲）\n火水不容，主理念对立，宜择合日为佳',
+                '马': '与鼠相冲（午子相冲）\n火水相克，主急躁冲动，需选吉日平和',
+                '羊': '与牛相冲（未丑相冲）\n土土相冲，主观念不合，宜避免此时机',
+                '猴': '与虎相冲（申寅相冲）\n金木相克，主变动不安，需化解冲克影响',
+                '鸡': '与兔相冲（酉卯相冲）\n金木相克，主争议频发，宜选合谐之日',
+                '狗': '与龙相冲（戌辰相冲）\n土土相冲，主固执对立，需避开不利时日',
+                '猪': '与蛇相冲（亥巳相冲）\n水火不容，主情绪波动，宜择三合日行事'
+            };
+            
+            return `生肖冲：${chongDesc[chongShengxiao] || '此日与某生肖相冲，宜谨慎择时'}`;
+        }
+        
+        // 新增：获取五行的详细解释
+        function getWuxingExplanation(wuxing, ganzhi) {
+            const wuxingDesc = {
+                '金': '金性：主收敛、坚毅、果断。金日宜签约、决策、庄重仪式，象征坚固持久的承诺',
+                '木': '木性：主生长、创新、向上。木日宜开始新事、种植、教育，象征生机勃勃的未来',
+                '水': '水性：主智慧、流动、包容。水日宜沟通、学习、适应，象征智慧与和谐',
+                '火': '火性：主热情、光明、活跃。火日宜庆祝、表达、行动，象征热烈与光明',
+                '土': '土性：主稳重、包容、厚德。土日宜奠基、承诺、稳定，象征踏实与可靠'
+            };
+            
+            return `五行${wuxing}：${wuxingDesc[wuxing] || '五行属性，影响当日气场与宜忌'}`;
+        }
+
+        // 新增：转义用于 HTML 属性的特殊字符，防止破坏 data-tooltip
+        function escapeAttr(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        // 优化的 tooltip 尺寸测量函数
+        function measureTooltipSize(el) {
+            const text = el.getAttribute('data-tooltip') || '';
+            if (!text) return { w: 0, h: 0 };
+            
+            // 创建临时测量元素
+            const tmp = document.createElement('div');
+            tmp.className = 'sign';
+            tmp.setAttribute('data-tooltip', text);
+            tmp.style.cssText = `
+                position: absolute;
+                visibility: hidden;
+                pointer-events: none;
+                z-index: -1;
+                top: -9999px;
+                left: -9999px;
+            `;
+            
+            // 添加伪元素样式
+            tmp.innerHTML = `<style>
+                .temp-tooltip::after {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    background: #2c3e50;
+                    color: #ecf0f1;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    font-size: 13px;
+                    line-height: 1.6;
+                    white-space: normal;
+                    max-width: 360px;
+                    min-width: 200px;
+                    text-align: left;
+                    word-break: break-word;
+                    opacity: 1;
+                    visibility: visible;
+                }
+            </style>`;
+            
+            tmp.classList.add('temp-tooltip');
+            document.body.appendChild(tmp);
+            
+            // 获取伪元素的尺寸（使用更准确的计算）
+            const rect = tmp.getBoundingClientRect();
+            const computedStyle = window.getComputedStyle(tmp, '::after');
+            
+            // 计算文本实际占用尺寸，考虑换行和填充
+            const lines = text.split('\n');
+            const maxLineLength = Math.max(...lines.map(line => line.length));
+            const estimatedWidth = Math.min(360, Math.max(200, maxLineLength * 10 + 32)); // 加上 padding
+            const estimatedHeight = lines.length * 20 + 24; // 每行20px高度 + padding
+            
+            const w = parseInt(computedStyle.width) || estimatedWidth;
+            const h = parseInt(computedStyle.height) || estimatedHeight;
+            
+            document.body.removeChild(tmp);
+            return { w, h };
+        }
+        
+        // 智能定位算法 - 优化版本
+        function setTooltipPosition(el) {
+            try {
+                // 获取元素位置信息
+                const rect = el.getBoundingClientRect();
+                const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+                const vw = window.innerWidth || document.documentElement.clientWidth;
+                const vh = window.innerHeight || document.documentElement.clientHeight;
+                
+                // 测量tooltip尺寸
+                const { w: tooltipWidth, h: tooltipHeight } = measureTooltipSize(el);
+                const margin = 16; // 安全边距
+                const arrowSize = 8; // 箭头大小
+                
+                // 计算各方向的可用空间
+                const space = {
+                    top: rect.top + scrollY,
+                    bottom: vh - (rect.bottom - scrollY),
+                    left: rect.left + scrollX,
+                    right: vw - (rect.right - scrollX)
+                };
+                
+                // 智能选择最佳位置
+                let bestPos = 'top'; // 修改默认位置为上方
+                let bestAlign = '';
+                let bestAlignY = '';
+                
+                // 优先级：上 > 下 > 右 > 左 (修改优先级顺序)
+                const positions = [
+                    { pos: 'top', space: space.top, size: tooltipHeight + arrowSize + margin },
+                    { pos: 'bottom', space: space.bottom, size: tooltipHeight + arrowSize + margin },
+                    { pos: 'right', space: space.right, size: tooltipWidth + arrowSize + margin },
+                    { pos: 'left', space: space.left, size: tooltipWidth + arrowSize + margin }
+                ];
+                
+                // 寻找第一个有足够空间的位置
+                for (const { pos, space: availableSpace, size } of positions) {
+                    if (availableSpace >= size) {
+                        bestPos = pos;
+                        break;
+                    }
+                }
+                
+                // 计算对齐方式以避免边缘溢出
+                if (bestPos === 'bottom' || bestPos === 'top') {
+                    const centerX = rect.left + rect.width / 2;
+                    const leftSpace = centerX;
+                    const rightSpace = vw - centerX;
+                    const halfTooltipWidth = tooltipWidth / 2;
+                    
+                    if (leftSpace < halfTooltipWidth + margin) {
+                        bestAlign = 'left';
+                    } else if (rightSpace < halfTooltipWidth + margin) {
+                        bestAlign = 'right';
+                    }
+                } else if (bestPos === 'left' || bestPos === 'right') {
+                    const centerY = rect.top + rect.height / 2;
+                    const topSpace = centerY;
+                    const bottomSpace = vh - centerY;
+                    const halfTooltipHeight = tooltipHeight / 2;
+                    
+                    if (topSpace < halfTooltipHeight + margin) {
+                        bestAlignY = 'top';
+                    } else if (bottomSpace < halfTooltipHeight + margin) {
+                        bestAlignY = 'bottom';
+                    }
+                }
+                
+                // 清除旧属性
+                el.removeAttribute('data-tooltip-pos');
+                el.removeAttribute('data-tooltip-align');
+                el.removeAttribute('data-tooltip-align-y');
+                
+                // 设置新位置属性
+                el.setAttribute('data-tooltip-pos', bestPos);
+                if (bestAlign) el.setAttribute('data-tooltip-align', bestAlign);
+                if (bestAlignY) el.setAttribute('data-tooltip-align-y', bestAlignY);
+                
+                // 调试信息（可选）
+                if (window.DEBUG_TOOLTIP) {
+                    console.log(`Tooltip positioned: ${bestPos}`, {
+                        align: bestAlign,
+                        alignY: bestAlignY,
+                        space,
+                        tooltipSize: { w: tooltipWidth, h: tooltipHeight }
+                    });
+                }
+                
+            } catch (error) {
+                console.warn('Tooltip positioning failed:', error);
+                // 降级到默认位置
+                el.setAttribute('data-tooltip-pos', 'bottom');
+            }
+        }
+
+        // 优化的 tooltip 初始化系统
+        function initTooltips(root) {
+            const scope = root || document;
+            const tooltipElements = scope.querySelectorAll('[data-tooltip]'); // 扩展为所有带data-tooltip的元素
+            
+            tooltipElements.forEach(el => {
+                // 防止重复初始化
+                if (el.hasAttribute('data-tooltip-initialized')) return;
+                el.setAttribute('data-tooltip-initialized', 'true');
+                
+                // 优化的事件处理
+                let hoverTimer = null;
+                
+                // 鼠标进入时延迟计算位置
+                el.addEventListener('mouseenter', () => {
+                    clearTimeout(hoverTimer);
+                    hoverTimer = setTimeout(() => {
+                        setTooltipPosition(el);
+                    }, 50); // 50ms延迟，避免快速滑过时的不必要计算
+                });
+                
+                // 鼠标离开时清除计时器
+                el.addEventListener('mouseleave', () => {
+                    clearTimeout(hoverTimer);
+                });
+                
+                // 焦点事件
+                el.addEventListener('focus', () => {
+                    setTooltipPosition(el);
+                });
+                
+                // 仅为.sign元素添加点击事件，其他元素只用悬停
+                if (el.classList.contains('sign')) {
+                    // 优化的点击处理
+                    el.addEventListener('click', (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        
+                        const isCurrentlyOpen = el.getAttribute('data-tooltip-open') === 'true';
+                        
+                        // 关闭其他已打开的tooltip
+                        document.querySelectorAll('[data-tooltip][data-tooltip-open="true"]')
+                            .forEach(otherEl => {
+                                if (otherEl !== el) {
+                                    otherEl.removeAttribute('data-tooltip-open');
+                                }
+                            });
+                        
+                        // 切换当前tooltip状态
+                        if (isCurrentlyOpen) {
+                            el.removeAttribute('data-tooltip-open');
+                        } else {
+                            setTooltipPosition(el);
+                            el.setAttribute('data-tooltip-open', 'true');
+                        }
+                    });
+                    
+                    // 键盘事件支持
+                    el.addEventListener('keydown', (ev) => {
+                        if (ev.key === 'Enter' || ev.key === ' ') {
+                            ev.preventDefault();
+                            el.click();
+                        }
+                    });
+                }
+            });
+        }
+
+        // 全局事件处理优化
+        let globalTooltipInitialized = false;
+        
+        function initGlobalTooltipEvents() {
+            if (globalTooltipInitialized) return;
+            globalTooltipInitialized = true;
+            
+            // 点击空白区域关闭tooltip
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('[data-tooltip]')) {
+                    document.querySelectorAll('[data-tooltip][data-tooltip-open="true"]')
+                        .forEach(el => el.removeAttribute('data-tooltip-open'));
+                }
+            });
+            
+            // ESC键关闭tooltip
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('[data-tooltip][data-tooltip-open="true"]')
+                        .forEach(el => el.removeAttribute('data-tooltip-open'));
+                }
+            });
+            
+            // 窗口大小改变时重新计算位置
+            let resizeTimer = null;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    document.querySelectorAll('[data-tooltip][data-tooltip-open="true"]')
+                        .forEach(el => setTooltipPosition(el));
+                }, 100);
+            });
+            
+            // 滚动时重新计算位置
+            let scrollTimer = null;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    document.querySelectorAll('[data-tooltip][data-tooltip-open="true"]')
+                        .forEach(el => setTooltipPosition(el));
+                }, 50);
+            }, { passive: true });
+        }
+        
+        // 在页面加载完成后初始化全局事件
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGlobalTooltipEvents);
+        } else {
+            initGlobalTooltipEvents();
+        }
+        
+         // 新增：显示生辰信息
+         function displayBirthInfo(maleInfo, femaleInfo, maleDate, femaleDate) {
+             const panel = document.getElementById('birth-info-panel');
+             const groomDetails = document.getElementById('groom-details');
+             const brideDetails = document.getElementById('bride-details');
+             
+             // 格式化生日显示
+             const formatBirthDate = (date) => {
+                 const year = date.getFullYear();
+                 const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                 const day = date.getDate().toString().padStart(2, '0');
+                 const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+                 const weekday = weekdays[date.getDay()];
+                 return `${year}年${month}月${day}日 ${weekday}`;
+             };
+             
+             // 生成新郎信息
+             groomDetails.innerHTML = `
+                 <div class="birth-detail-item">
+                     <strong>公历：</strong>${formatBirthDate(maleDate)}
+                 </div>
+                 <div class="birth-detail-item">
+                     <strong>农历：</strong>${maleInfo.lunarDate}
+                 </div>
+                 <div class="birth-detail-item">
+                     <strong>干支：</strong>${maleInfo.yearGanzhi} 年 (属${maleInfo.shengxiao})
+                 </div>
+                 <div class="birth-detail-item">
+                     <strong>五行：</strong>${maleInfo.yearWuxing}命
+                 </div>
+             `;
+             
+             // 生成新娘信息
+             brideDetails.innerHTML = `
+                 <div class="birth-detail-item">
+                     <strong>公历：</strong>${formatBirthDate(femaleDate)}
+                 </div>
+                 <div class="birth-detail-item">
+                     <strong>农历：</strong>${femaleInfo.lunarDate}
+                 </div>
+                 <div class="birth-detail-item">
+                     <strong>干支：</strong>${femaleInfo.yearGanzhi} 年 (属${femaleInfo.shengxiao})
+                 </div>
+                 <div class="birth-detail-item">
+                     <strong>五行：</strong>${femaleInfo.yearWuxing}命
+                 </div>
+             `;
+             
+             // 显示面板
+             panel.style.display = 'block';
+         }
+         
+         // 显示计算结果
+         function displayResults(results, maleInfo, femaleInfo) {
+            const container = document.getElementById('result-container');
+            
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>未找到符合条件的吉日，请扩大查询范围</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 按推荐指数排序
+            results.sort((a, b) => b.score - a.score);
+            
+            // 只显示前20个结果
+            const topResults = results.slice(0, 20);
+            
+            let html = '';
+            topResults.forEach(result => {
+                // 格式化日期
+                const solarDateStr = formatSolarDateForDisplay(result.solarDate); // 改为中文阳历+星期格式显示
+                 
+                 // 创建星级评价
+                 const stars = '★'.repeat(result.score) + '☆'.repeat(5 - result.score);
+                 
+                 // 创建吉神和十二建星标签（带 tooltip）
+                 const dayZhi = result.ganzhi && result.ganzhi.length >= 2 ? result.ganzhi[1] : '';
+                 
+                 // 添加十二建星（传统文化核心）
+                 let signsHTML = `<div class="sign traditional-star" tabindex="0" data-tooltip="${escapeAttr(getBuilderExplanation(result.builder))}">
+                     <i class="fas fa-star"></i>${result.builder}星
+                 </div>`;
+                 
+                 // 添加传统吉神
+                 signsHTML += result.signs.map(sign => {
+                     const tip = getSignExplanation(sign, dayZhi);
+                     return `<div class="sign" tabindex="0" data-tooltip="${escapeAttr(tip)}"><i class="fas fa-star"></i>${sign}</div>`;
+                 }).join('');
+                 
+                 // 为干支、生肖冲、五行添加提示文本
+                 const ganzhiTip = getGanzhiExplanation(result.ganzhi);
+                 const chongTip = getChongExplanation(result.chongShengxiao, result.ganzhi);
+                 const wuxingTip = getWuxingExplanation(WUXING[DIZHI.indexOf(result.ganzhi[1])], result.ganzhi);
+                 
+                 html += `
+                     <div class="date-card">
+                         <div class="date-header">
+                             <div>
+                                 <span class="solar-date"><i class="fas fa-calendar-day"></i>${solarDateStr}</span>
+                                 <span class="lunar-date">农历 ${result.lunarDate}</span>
+                             </div>
+                             <span class="ganzhi" tabindex="0" data-tooltip="${escapeAttr(ganzhiTip)}">${result.ganzhi}</span>
+                         </div>
+                         <div class="details">
+                             <div class="detail-item">
+                                 <div class="detail-label">推荐指数</div>
+                                 <div class="stars">${stars}</div>
+                             </div>
+                             <div class="detail-item">
+                                 <div class="detail-label">生肖冲</div>
+                                 <div class="detail-value" tabindex="0" data-tooltip="${escapeAttr(chongTip)}">${result.chongShengxiao}</div>
+                             </div>
+                             <div class="detail-item">
+                                 <div class="detail-label">五行</div>
+                                 <div class="detail-value" tabindex="0" data-tooltip="${escapeAttr(wuxingTip)}">${WUXING[DIZHI.indexOf(result.ganzhi[1])]}</div>
+                             </div>
+                         </div>
+                         <div class="auspicious-signs">
+                             ${signsHTML}
+                         </div>
+                     </div>
+                 `;
+             });
+             
+             container.innerHTML = html;
+             
+             // 初始化全局tooltip事件（如果还未初始化）
+             initGlobalTooltipEvents();
+             
+             // 初始化新渲染元素的tooltip交互
+             initTooltips(container);
+         }
+         
+         // 显示计算错误
+         function showCalculationError(message) {
+             const container = document.getElementById('result-container');
+             container.innerHTML = `
+                 <div class="error-box">
+                     <i class="fas fa-bug"></i>
+                     <h3>计算失败</h3>
+                     <p>${message || '计算过程中发生错误'}</p>
+                     <button class="retry-btn" onclick="location.reload()">重新加载</button>
+                 </div>
+             `;
+         }
+         
+         // 格式化日期为YYYY-MM-DD
+         function formatDate(date) {
+             const year = date.getFullYear();
+             const month = (date.getMonth() + 1).toString().padStart(2, '0');
+             const day = date.getDate().toString().padStart(2, '0');
+             return `${year}-${month}-${day}`;
+         }
+        // 新增：格式化阳历日期（中文+星期），如“阳历 2025年08月26日 周二”
+        function formatSolarDateForDisplay(date) {
+            // 生成年、月、日，统一两位数
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            // 映射星期
+            const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            const weekday = weekdays[date.getDay()];
+            // 返回目标显示格式
+            return `阳历 ${year}年${month}月${day}日 ${weekday}`;
+        }
+    </script>
+</body>
+</html>
