@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//huangshuanglei-zhangning-love//Wedding Invitation//CN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20260721T113800-huangshuanglei-zhangning@huangshuanglei-zhangning.love
+DTSTAMP:20260630T073800Z
+DTSTART;TZID=Asia/Shanghai:20260721T113800
+DTEND;TZID=Asia/Shanghai:20260721T143800
+SUMMARY:黄双垒与张宁婚礼
+LOCATION:蚌埠市克拉宝格莉 四楼 奥斯卡厅
+DESCRIPTION:诚挚邀请您出席黄双垒与张宁的婚礼，见证我们的爱与喜悦。
+END:VEVENT
+END:VCALENDAR
