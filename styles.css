@@ -11,6 +11,9 @@
   --gold: #e8bd5e;
   --white: #fffaf5;
   --shadow: 0 22px 60px rgba(87, 36, 25, 0.14);
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --font-title: "Noto Serif SC", "STZhongsong", "Songti SC", "SimSun", serif;
+  --font-script: "Great Vibes", "Segoe Script", "Bradley Hand ITC", cursive;
 }
 
 * {
@@ -25,7 +28,10 @@ body {
   margin: 0;
   min-width: 320px;
   color: var(--ink);
-  font-family: "Noto Serif SC", "Songti SC", "Microsoft YaHei", serif;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   background:
     radial-gradient(circle at 12% 10%, rgba(234, 169, 184, 0.34), transparent 24rem),
     radial-gradient(circle at 88% 18%, rgba(155, 199, 223, 0.32), transparent 22rem),
@@ -122,8 +128,9 @@ a {
 .script {
   margin: 0 0 0.75rem;
   color: var(--wine);
-  font-family: "Segoe Script", "Bradley Hand ITC", "Comic Sans MS", cursive;
-  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-family: var(--font-script);
+  font-size: clamp(1.55rem, 3.5vw, 2.65rem);
+  font-weight: 400;
   line-height: 1.1;
 }
 
@@ -133,7 +140,8 @@ a {
 .closing h2 {
   margin: 0;
   color: var(--wine);
-  font-weight: 800;
+  font-family: var(--font-title);
+  font-weight: 900;
   letter-spacing: 0;
 }
 
@@ -157,7 +165,7 @@ a {
   margin: 1.25rem 0 0.25rem;
   color: var(--ink);
   font-size: clamp(1.45rem, 3.2vw, 2.35rem);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .hero__text,
@@ -259,7 +267,9 @@ a {
 .timeline h3 {
   margin: 1rem 0 0.5rem;
   color: var(--wine);
+  font-family: var(--font-title);
   font-size: 1.65rem;
+  font-weight: 800;
 }
 
 .timeline p {
@@ -313,14 +323,14 @@ a {
   margin-bottom: 0.5rem;
   color: var(--wine);
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .info-list dd {
   margin: 0.2rem 0;
   color: var(--ink);
   font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .info-list .muted {
