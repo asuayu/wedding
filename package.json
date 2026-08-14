@@ -1,0 +1,16 @@
+{
+  "name": "love-archive",
+  "version": "2.0.0",
+  "private": true,
+  "description": "黄双垒与张宁的恋爱纪念网站",
+  "scripts": {
+    "test": "npm run test:html && npm run test:browser",
+    "test:html": "html-validate index.html",
+    "test:browser": "playwright test",
+    "test:visual": "node tests/capture.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "html-validate": "11.6.2"
+  }
+}

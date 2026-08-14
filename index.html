@@ -1,114 +1,251 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="黄双垒与张宁的婚礼邀请函，诚挚邀请亲朋好友参加我们的婚礼。" />
-    <meta property="og:title" content="黄双垒 & 张宁 | 婚礼邀请函" />
-    <meta property="og:description" content="2026.7.21 中午11:38，蚌埠市克拉宝格莉四楼奥斯卡厅，我们期待与您婚礼相见。" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="Gemini_Generated_Image_rw8al1rw8al1rw8a.webp" />
-    <title>黄双垒 & 张宁 | 婚礼邀请函</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="黄双垒与张宁的恋爱纪念册。把心动、日常和想一起抵达的未来，认真收藏在这里。">
+    <meta name="theme-color" content="#f5eee6">
+    <meta property="og:title" content="双向奔赴｜黄双垒 &amp; 张宁">
+    <meta property="og:description" content="日子缓缓，爱意漫漫。欢迎翻阅我们的恋爱纪念册。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/garden-together.webp">
+    <title>双向奔赴｜黄双垒 &amp; 张宁</title>
+    <link rel="icon" href="assets/heart.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script>document.documentElement.classList.add("js");</script>
   </head>
   <body>
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero__art" aria-hidden="true">
-          <img src="Gemini_Generated_Image_rw8al1rw8al1rw8a.webp" alt="" />
-        </div>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <div class="page-progress" aria-hidden="true"><span id="page-progress-bar"></span></div>
+
+    <header class="site-header" id="site-header">
+      <a class="brand" href="#home" aria-label="返回首页">
+        <span class="brand__mark" aria-hidden="true">双</span>
+        <span class="brand__text"><strong>双向奔赴</strong><small>OUR LOVE ARCHIVE</small></span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span><span class="sr-only">打开导航</span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="主要导航">
+        <a href="#story">故事</a>
+        <a href="#gallery">时光</a>
+        <a href="#promises">约定</a>
+        <a href="#letter">情书</a>
+      </nav>
+      <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="切换夜间模式" title="切换夜间模式">
+        <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.2 15.3A9 9 0 0 1 8.7 3.8 9 9 0 1 0 20.2 15.3Z" /></svg>
+        <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+      </button>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <div class="hero__wash" aria-hidden="true"></div>
         <div class="hero__copy">
-          <p class="eyebrow">Wedding invitation</p>
-          <h1 id="hero-title"><span class="name">黄双垒</span><span class="heart">♥</span><span class="name">张宁</span></h1>
-          <p class="hero__lead">我们要结婚啦</p>
-          <p class="hero__text">
-            从相遇到相守，从两个人的故事到一场被祝福围绕的婚礼，诚挚邀请您来到现场，见证我们的爱与喜悦。
-          </p>
-          <div class="hero__actions">
-            <a class="button" href="#details">查看婚礼信息</a>
-            <a class="button button--ghost" href="#story">读我们的故事</a>
+          <p class="overline reveal">A LITTLE LOVE STORY · 2026</p>
+          <h1 id="hero-title" class="reveal">
+            爱，落在<br>
+            <em>每一个日常</em>里
+          </h1>
+          <p class="hero__intro reveal">我们没有惊天动地的开场，只有一次次走向彼此的认真。后来，喜欢变成习惯，习惯变成了想共度余生。</p>
+          <div class="hero__names reveal" role="group" aria-label="黄双垒和张宁">
+            <span>黄双垒</span>
+            <svg aria-hidden="true" viewBox="0 0 64 36"><path d="M32 30S8 18 8 8c0-7 10-9 15-2l9 10 9-10c5-7 15-5 15 2 0 10-24 22-24 22Z" /></svg>
+            <span>张宁</span>
           </div>
+          <a class="text-link reveal" href="#story"><span>翻开我们的故事</span><span aria-hidden="true">↘</span></a>
+        </div>
+
+        <div class="hero__visual reveal">
+          <div class="hero__photo-frame">
+            <img src="assets/garden-together.webp" alt="黄双垒与张宁站在花园里的手绘合影" width="1100" height="1651" fetchpriority="high">
+          </div>
+          <p class="hero__scribble" aria-hidden="true">You &amp; me,<br>always.</p>
+          <div class="hero__stamp" aria-hidden="true"><span>LOVE</span><strong>∞</strong><span>ARCHIVE</span></div>
+          <svg class="hero__line" aria-hidden="true" viewBox="0 0 180 150"><path d="M8 136c64-9 92-52 84-83-7-25-37-20-38 2-2 29 46 41 114-42" /></svg>
+        </div>
+
+        <div class="hero__meta reveal">
+          <div><span>01</span><p>从心动<br>到心安</p></div>
+          <div><span>02</span><p>日子缓缓<br>爱意漫漫</p></div>
+          <div><span>∞</span><p>故事未完<br>一直续写</p></div>
         </div>
       </section>
 
-      <section class="intro" aria-label="欢迎">
-        <div class="intro__inner">
-          <p class="script">Welcome to our wedding</p>
-          <h2>把这一天，写进我们共同的回忆里</h2>
-          <p>
-            感谢一路陪伴我们的亲人和朋友。婚礼不只是一次仪式，也是我们想认真说出的感谢：
-            谢谢您曾参与我们的成长，也愿意在这个温暖的日子里，为新的开始举杯。
-          </p>
+      <section class="counter-section section-shell" aria-labelledby="counter-title">
+        <div class="counter-card reveal">
+          <div class="counter-card__label">
+            <p class="overline">TOGETHER, SINCE 2026.07.21</p>
+            <h2 id="counter-title">认真相爱的<br>每一刻都算数</h2>
+          </div>
+          <div class="love-counter" id="love-counter" aria-live="polite">
+            <div><strong data-counter="days">0</strong><span>天</span></div>
+            <div><strong data-counter="hours">00</strong><span>小时</span></div>
+            <div><strong data-counter="minutes">00</strong><span>分钟</span></div>
+            <div><strong data-counter="seconds">00</strong><span>秒</span></div>
+          </div>
+          <p class="counter-card__note">从这一天起，“我”与“你”有了一个共同的名字：我们。</p>
         </div>
       </section>
 
-      <section class="story" id="story" aria-labelledby="story-title">
-        <div class="section-heading">
-          <p class="eyebrow">Love letter</p>
-          <h2 id="story-title">我们的故事</h2>
-        </div>
-        <div class="timeline">
-          <article>
-            <span>01</span>
-            <h3>遇见</h3>
-            <p>像春日里突然盛开的花，平凡日子有了新的颜色。一次相识，让两个世界开始慢慢靠近。</p>
+      <section class="story section-shell" id="story" aria-labelledby="story-title">
+        <header class="section-heading reveal">
+          <p class="overline">CHAPTERS OF US</p>
+          <h2 id="story-title">我们的故事，<br><em>未完待续</em></h2>
+          <p>爱不是某一个高光瞬间，而是所有普通时刻里，我们都没有松开彼此的手。</p>
+        </header>
+
+        <div class="story-list">
+          <article class="story-item reveal">
+            <div class="story-item__number">01</div>
+            <div class="story-item__title"><span>CHAPTER ONE</span><h3>遇见</h3></div>
+            <p>世界很大，大到两个人的相遇像一场奇迹。世界又很小，小到一个眼神，就让往后的日子有了不同的方向。</p>
+            <span class="story-item__season">春 · 初见</span>
           </article>
-          <article>
-            <span>02</span>
-            <h3>相知</h3>
-            <p>我们一起收藏生活里的小事：一顿饭、一段路、一句晚安，也把彼此的未来认真放在心上。</p>
+          <article class="story-item reveal">
+            <div class="story-item__number">02</div>
+            <div class="story-item__title"><span>CHAPTER TWO</span><h3>靠近</h3></div>
+            <p>我们开始分享三餐、晚风和琐碎，把“今天发生了什么”说给对方听，也把不确定的未来慢慢说成了约定。</p>
+            <span class="story-item__season">夏 · 心动</span>
           </article>
-          <article>
-            <span>03</span>
-            <h3>奔赴</h3>
-            <p>这一次，我们想牵着手走向人生的新阶段，也邀请最重要的你们，来到现场共同见证。</p>
+          <article class="story-item reveal">
+            <div class="story-item__number">03</div>
+            <div class="story-item__title"><span>CHAPTER THREE</span><h3>并肩</h3></div>
+            <p>爱让我们看见彼此柔软的部分，也给了我们一起面对生活的勇气。难过有人接住，快乐有人第一时间懂得。</p>
+            <span class="story-item__season">秋 · 相守</span>
+          </article>
+          <article class="story-item reveal">
+            <div class="story-item__number">04</div>
+            <div class="story-item__title"><span>TO BE CONTINUED</span><h3>余生</h3></div>
+            <p>不是故事抵达了结局，而是我们决定开启最长的一章：在无数个平凡清晨醒来，身边一直都是同一个人。</p>
+            <span class="story-item__season">四季 · 朝夕</span>
           </article>
         </div>
       </section>
 
-      <section class="details" id="details" aria-labelledby="details-title">
-        <div class="details__card">
-          <div class="section-heading">
-            <p class="eyebrow">Wedding time</p>
-            <h2 id="details-title">婚宴信息</h2>
-          </div>
-          <dl class="info-list">
-            <div>
-              <dt>婚宴时间</dt>
-              <dd>2026.7.21 | 中午 11:38</dd>
-              <dd class="muted">农历六月初八 星期二</dd>
-            </div>
-            <div>
-              <dt>婚宴地址</dt>
-              <dd>蚌埠市克拉宝格莉 四楼 奥斯卡厅</dd>
-            </div>
-          </dl>
-          <div class="countdown" aria-label="婚礼倒计时">
-            <div><strong id="days">--</strong><span>天</span></div>
-            <div><strong id="hours">--</strong><span>时</span></div>
-            <div><strong id="minutes">--</strong><span>分</span></div>
-            <div><strong id="seconds">--</strong><span>秒</span></div>
-          </div>
-          <div class="details__actions">
-            <a class="button" href="https://uri.amap.com/search?keyword=%E8%9A%8C%E5%9F%A0%E5%B8%82%E5%85%8B%E6%8B%89%E5%AE%9D%E6%A0%BC%E8%8E%89" target="_blank" rel="noreferrer">打开导航</a>
-            <a class="button button--ghost" href="calendar.ics">加入日历</a>
-          </div>
+      <section class="gallery section-shell" id="gallery" aria-labelledby="gallery-title">
+        <header class="section-heading section-heading--row reveal">
+          <div><p class="overline">MEMORY ALBUM</p><h2 id="gallery-title">时光有形，<br><em>爱有回声</em></h2></div>
+          <p>我们把喜欢的瞬间收藏起来。多年以后再看，仍会记得那天的风、花香，以及望向彼此时的笑意。</p>
+        </header>
+
+        <div class="photo-grid">
+          <button class="photo-card photo-card--wide reveal" type="button" data-gallery-index="0" aria-label="查看花园合影大图">
+            <img src="assets/garden-together.webp" alt="花园里的两人合影" width="1100" height="1651" loading="lazy">
+            <span><small>NO.01 · TOGETHER</small>花园里，站在你身边</span>
+          </button>
+          <button class="photo-card reveal" type="button" data-gallery-index="1" aria-label="查看张宁肖像大图">
+            <img src="assets/portrait-her.webp" alt="张宁手捧鲜花的手绘肖像" width="900" height="1349" loading="lazy">
+            <span><small>NO.02 · HER</small>眉眼弯弯，是心动的样子</span>
+          </button>
+          <button class="photo-card reveal" type="button" data-gallery-index="2" aria-label="查看黄双垒肖像大图">
+            <img src="assets/portrait-him.webp" alt="黄双垒站在花房中的手绘肖像" width="900" height="1351" loading="lazy">
+            <span><small>NO.03 · HIM</small>向你走来，也走向未来</span>
+          </button>
+          <button class="photo-card photo-card--landscape reveal" type="button" data-gallery-index="3" aria-label="查看欢迎合影大图">
+            <img src="assets/cover-couple.webp" alt="两人在鲜花间挥手的手绘合影" width="1200" height="1379" loading="lazy">
+            <span><small>NO.04 · OUR DAY</small>人潮拥挤，我们始终并肩</span>
+          </button>
         </div>
       </section>
 
-      <section class="closing" aria-label="期待相见">
-        <p class="script">See you at the wedding</p>
-        <h2>良辰已定，喜宴将启</h2>
-        <p>
-          愿这一天有鲜花、有笑声、有久别重逢的拥抱，也有您送来的祝福。
-          黄双垒与张宁，期待与您婚礼相见。
-        </p>
+      <section class="reasons section-shell" aria-labelledby="reasons-title">
+        <header class="section-heading reveal">
+          <p class="overline">WHY I LOVE YOU</p>
+          <h2 id="reasons-title">喜欢你的理由，<br><em>写不完</em></h2>
+          <p>点一点卡片，拆开几句只说给你听的话。</p>
+        </header>
+        <div class="reason-stack" id="reason-stack">
+          <button class="reason-card reveal" type="button"><span>01</span><strong>因为是你</strong><span class="reason-card__copy">你让平凡的日子有了值得期待的光。</span><small>轻触收藏心动</small></button>
+          <button class="reason-card reveal" type="button"><span>02</span><strong>因为懂得</strong><span class="reason-card__copy">话不用说完，你就能读懂我的沉默。</span><small>轻触收藏心动</small></button>
+          <button class="reason-card reveal" type="button"><span>03</span><strong>因为安心</strong><span class="reason-card__copy">只要你在，世界再吵也会慢慢安静。</span><small>轻触收藏心动</small></button>
+          <button class="reason-card reveal" type="button"><span>04</span><strong>因为未来</strong><span class="reason-card__copy">所有关于明天的想象里，都有你的身影。</span><small>轻触收藏心动</small></button>
+        </div>
+      </section>
+
+      <section class="promises section-shell" id="promises" aria-labelledby="promises-title">
+        <div class="promises__intro reveal">
+          <p class="overline">OUR LITTLE BUCKET LIST</p>
+          <h2 id="promises-title">想和你一起，<br><em>慢慢完成</em></h2>
+          <p>伟大的浪漫也许很少，但我们可以认真完成很多件幸福的小事。勾选状态只会保存在你的浏览器里。</p>
+          <div class="promise-progress" aria-live="polite">
+            <div><span id="promise-progress-bar"></span></div>
+            <p><strong id="promise-complete">0</strong> / <span id="promise-total">6</span> 已完成</p>
+          </div>
+        </div>
+        <div class="promise-list reveal" id="promise-list">
+          <label><input type="checkbox" value="sunsets"><span class="checkmark" aria-hidden="true"></span><span><strong>一起看很多很多次日落</strong><small>不赶时间，只等天空慢慢变成橘色</small></span><em>01</em></label>
+          <label><input type="checkbox" value="photo"><span class="checkmark" aria-hidden="true"></span><span><strong>每年都拍一张合照</strong><small>把我们一起变老的样子认真存档</small></span><em>02</em></label>
+          <label><input type="checkbox" value="city"><span class="checkmark" aria-hidden="true"></span><span><strong>去陌生的城市散步</strong><small>没有攻略也没关系，牵着手就不会迷路</small></span><em>03</em></label>
+          <label><input type="checkbox" value="meal"><span class="checkmark" aria-hidden="true"></span><span><strong>学会一道对方爱吃的菜</strong><small>把“我爱你”藏进柴米油盐里</small></span><em>04</em></label>
+          <label><input type="checkbox" value="night"><span class="checkmark" aria-hidden="true"></span><span><strong>不带着情绪说晚安</strong><small>认真拥抱，也认真解决每一次小别扭</small></span><em>05</em></label>
+          <label><input type="checkbox" value="ordinary"><span class="checkmark" aria-hidden="true"></span><span><strong>好好过每一个普通日子</strong><small>因为和你一起，普通本身就是答案</small></span><em>06</em></label>
+        </div>
+      </section>
+
+      <section class="letter section-shell" id="letter" aria-labelledby="letter-title">
+        <div class="letter__photo reveal">
+          <img src="assets/cover-couple.webp" alt="黄双垒与张宁的手绘合影" width="1200" height="1379" loading="lazy">
+          <span class="tape" aria-hidden="true"></span>
+          <p>致我们正在发生的，<br>长长久久。</p>
+        </div>
+        <div class="letter__copy reveal">
+          <p class="overline">A LETTER FOR YOU</p>
+          <h2 id="letter-title">有些话，<br><em>想慢慢说给你听</em></h2>
+          <p>从“幸会”到“余生”，我们走过的每一步都值得被珍藏。这里有一封写给你的信，等你亲手拆开。</p>
+          <button class="button button--ink" id="open-letter" type="button"><span>拆开这封情书</span><span aria-hidden="true">♡</span></button>
+        </div>
+      </section>
+
+      <section class="closing section-shell" aria-labelledby="closing-title">
+        <p class="closing__script reveal" aria-hidden="true">Stay with me.</p>
+        <div class="closing__content reveal">
+          <p class="overline">AND THE STORY GOES ON</p>
+          <h2 id="closing-title">故事还在继续，<br>下一页仍然是<em>我们</em>。</h2>
+          <p>愿漫长岁月里，知世故而不世故，历圆滑而弥天真。愿我们永远有话可说，也永远愿意听彼此说。</p>
+          <div class="closing__actions">
+            <button class="button" id="share-site" type="button"><span>分享这份心意</span><span aria-hidden="true">↗</span></button>
+            <a class="button button--ghost" href="#home"><span>回到故事开头</span><span aria-hidden="true">↑</span></a>
+          </div>
+        </div>
+        <form class="note-form reveal" id="note-form">
+          <label for="private-note">给未来的我们留一句话</label>
+          <textarea id="private-note" maxlength="120" rows="3" placeholder="例如：明年也要一起去看春天……"></textarea>
+          <div><small>仅保存在当前浏览器 · <span id="note-count">0</span>/120</small><button type="submit">珍藏这句话</button></div>
+        </form>
       </section>
     </main>
 
+    <footer class="site-footer">
+      <p><span>黄双垒</span><b aria-hidden="true">♥</b><span>张宁</span></p>
+      <p>MADE FOR TWO · <span id="current-year">2026</span></p>
+    </footer>
+
+    <dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-caption">
+      <button class="lightbox__close" type="button" aria-label="关闭相册">×</button>
+      <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="上一张">←</button>
+      <figure><img id="lightbox-image" src="assets/garden-together.webp" alt=""><figcaption id="lightbox-caption"></figcaption></figure>
+      <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="下一张">→</button>
+    </dialog>
+
+    <dialog class="letter-dialog" id="letter-dialog" aria-labelledby="letter-dialog-title">
+      <div class="letter-paper">
+        <button class="letter-dialog__close" type="button" aria-label="合上情书">×</button>
+        <p class="letter-paper__date">TO MY FAVORITE PERSON</p>
+        <h2 id="letter-dialog-title">亲爱的你：</h2>
+        <div class="letter-paper__body">
+          <p>很庆幸，在熙熙攘攘的人群里，我们看见了彼此。</p>
+          <p>谢谢你愿意听我讲没有结局的琐事，陪我走没有目的地的路；谢谢你接住我的疲惫，也把你的快乐毫无保留地分给我。和你在一起之后，我才发现，原来最好的爱情不是时刻轰轰烈烈，而是每天醒来，都仍然想把今天交给同一个人。</p>
+          <p>未来一定还有晴天、雨天和偶尔找不到答案的日子。但没关系，我们可以慢一点，牵紧一点。你负责做你自己，我负责一直爱你。</p>
+          <p>岁岁年年，朝朝暮暮。愿我们把余生过成很多个值得纪念的普通一天。</p>
+        </div>
+        <p class="letter-paper__sign">永远站在你这边的人<br><strong>黄双垒 &amp; 张宁</strong></p>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <canvas class="celebration" id="celebration" aria-hidden="true"></canvas>
+    <noscript><p class="noscript">开启 JavaScript 后，可以体验纪念计时、相册和情书互动。</p></noscript>
     <script src="script.js"></script>
   </body>
 </html>

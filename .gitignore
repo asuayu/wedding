@@ -1,0 +1,13 @@
+# Generated deployment artifacts
+deploy/
+*.zip
+
+# Large source images (the optimized WebP versions live in assets/)
+Gemini_Generated_Image_*.png
+
+# Local test output and dependencies
+node_modules/
+test-results/
+playwright-report/
+artifacts/
+.DS_Store
