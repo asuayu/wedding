@@ -4,6 +4,8 @@
   "private": true,
   "description": "黄双垒与张宁的恋爱纪念网站",
   "scripts": {
+    "build": "node scripts/build.mjs",
+    "deploy": "wrangler deploy",
     "test": "npm run test:html && npm run test:browser",
     "test:html": "html-validate index.html",
     "test:browser": "playwright test",
@@ -11,6 +13,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",
-    "html-validate": "11.6.2"
+    "html-validate": "11.6.2",
+    "wrangler": "4.123.0"
   }
 }

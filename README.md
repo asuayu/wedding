@@ -46,6 +46,19 @@ npm test
 
 仓库已包含 `.nojekyll`，不需要构建步骤。在 GitHub 仓库的 **Settings → Pages** 中选择从 `main` 分支根目录部署即可。
 
+## Cloudflare Workers
+
+仓库包含 `wrangler.jsonc`。Wrangler 会先运行 `npm run build`，只把 `index.html`、样式、脚本和 `assets/` 中的网页资源整理到 `dist/`，然后作为 Workers Static Assets 发布。
+
+在 Cloudflare Workers Builds 中使用以下设置：
+
+- 生产分支：`main`
+- 根目录：`/`
+- 构建命令：留空（Wrangler 会执行仓库中的构建命令）
+- 部署命令：`npx wrangler deploy`
+
+本地可先运行 `npm run deploy -- --dry-run` 验证部署配置，不会上传到 Cloudflare。
+
 ## 项目结构
 
 ```text
@@ -54,7 +67,9 @@ npm test
 ├── index.html       # 语义化页面结构与内容
 ├── styles.css       # 视觉、响应式和动效
 ├── script.js        # 计时、相册、清单、分享等交互
+├── scripts/          # Cloudflare 发布资源构建脚本
 ├── tests/           # Playwright 浏览器测试与视觉截图工具
 ├── package.json     # 测试命令和开发依赖
+├── wrangler.jsonc   # Cloudflare Workers Static Assets 配置
 └── README.md
 ```
